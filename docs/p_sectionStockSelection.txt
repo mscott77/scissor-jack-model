@@ -1,0 +1,12 @@
+
+
+% '??' = W x H x t  (t=wall thickenss)                                                                                                       % FIXME: add real stock sizes
+% 'I1' = 1x1x1/8
+% 'I2' = 1.5x1.5x1/8
+% 'I3' = 2x2x1/8
+% 'C1' = 1x1x1/8
+% 'C2' = 1.5x1x1/8
+% 'C3' = 2x1x1/8
+% 'R1' = 1x1x1/8
+% 'R2' = 1.5x1.5x1/8
+% 'R3' = 2x2x1/8
