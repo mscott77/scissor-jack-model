@@ -100,34 +100,49 @@ index = find([stress_cb_start, stress_d_start, stress_v_start, stress_cb_end, st
 o_maxStress_location = variables{index};
 
 %%---------------------------------------------FAILURE MODE CALCS-------------------------------------------------%%
+ridiculousValue = 70e70;            
 %------DIAGONAL MEMBER-------
 % tearout
-SF_d_tearout_start = 0;
-SF_d_tearout_end = 0;
+SF_d_tearout_start = ridiculousValue;
+SF_d_tearout_end = ridiculousValue;
 % axial
 SF_d_axial_start = calculateSF_diag_axial(Sy_Ti, stress_d_start);
 SF_d_axial_end = calculateSF_diag_axial(Sy_Ti, stress_d_end);
 % bearing
-SF_d_bearing_start = 0;
-SF_d_bearing_end = 0;
+SF_d_bearing_start = ridiculousValue;
+SF_d_bearing_end = ridiculousValue;
 
 %------CROSS BAR-------
 % bearing
-SF_cb_bearing_start = 0;
-SF_cb_bearing_end = 0;
+SF_cb_bearing_start = ridiculousValue;
+SF_cb_bearing_end = ridiculousValue;
 % buckling
-SF_cb_buckling_start = 0;
-SF_cb_buckling_end = 0;
+SF_cb_buckling_start = ridiculousValue;
+SF_cb_buckling_end = ridiculousValue;
 %------PIN-------
 % shear
-SF_pin_shear_start = 0;
-SF_pin_shear_end = 0;
+SF_pin_shear_start = ridiculousValue;
+SF_pin_shear_end = ridiculousValue;
 % bearing
-SF_pin_bearing_start = 0;
-SF_pin_bearing_end = 0;
+SF_pin_bearing_start = ridiculousValue;
+SF_pin_bearing_end = ridiculousValue;
 
 
+%--------decide the dominant faliure mode (lowest safety factor)--------
+failureNames = {'SF_d_tearout_start', 'SF_d_tearout_end', 'SF_d_axial_start', 'SF_d_axial_end', 'SF_d_bearing_start','SF_d_bearing_end', ...
+                'SF_cb_bearing_start', 'SF_cb_bearing_end', 'SF_cb_buckling_start', 'SF_cb_buckling_end', ...
+                'SF_pin_shear_start', 'SF_pin_shear_end', 'SF_pin_bearing_start', 'SF_pin_bearing_end'};
 
+failureVals = [SF_d_tearout_start, SF_d_tearout_end, SF_d_axial_start, SF_d_axial_end, SF_d_bearing_start, SF_d_bearing_end, ...
+               SF_cb_bearing_start, SF_cb_bearing_end, SF_cb_buckling_start, SF_cb_buckling_end, ...
+               SF_pin_shear_start, SF_pin_shear_end, SF_pin_bearing_start, SF_pin_bearing_end];
+
+% Find the minimum safety factor
+o_failModeSafetyFactor = min(failureVals);
+% Find the index of the minimum safety factor
+fMode_Index = find(failureVals == o_failModeSafetyFactor);
+fMode_info = failureNames{fMode_Index};
+[o_failureMode, o_failureModeLocation, o_failureModeOrientation] = getFailureModeInfo(fMode_info);
 
 
 
@@ -138,23 +153,21 @@ SF_pin_bearing_end = 0;
 % 1. total weight of the scissor jack (including pins, diagonal and vertical members, and cross bar) - DONE 
 % 2. maximum stress (stress in the member under maximum stress) - DONE
 % 3. failure mode and related info
-o_failureMode = 'xxx';                  % which failure mode failed first (which one has the lowest safety factor) 
-o_failureModeLocation = 'xxx';          % where the failure mode occurred (which member or pin)
-o_failModeSafetyFactor = 0;             % safety factor of the failed mode
        
 
 % define result as strings
 string1 = ['Total Weight:                           '  num2str(o_totalWeight)           '       (lb)                                                ']; 
 string2 = ['Max Stress:                             '  num2str(o_maxStress)             '       (psi)'];     
-string21 =['----Location:                           '  o_maxStress_location];
-string3 = ['Dominant Failure Mode:           '  o_failureMode];
-string4 = ['----Location:                           '  o_failureModeLocation];
+string21 =['----Location:                             '  o_maxStress_location];
+string3 = ['Dominant Failure Mode:          '  o_failureMode];
+string4 = ['----Location:                             '  o_failureModeLocation];
 string5 = ['----Safety Factor:                     '  num2str(o_failModeSafetyFactor)  ''];
+string6 = ['----orientation:                          '  num2str(o_failureModeOrientation)  ''];
  
 
 
 % Concatenate the strings
-result_str = join({string1, string2, string21 string3, string4, string5}, newline);
+result_str = join({string1, string2, string21 string3, string4, string5, string6}, newline);
 
 
 % Display the concatenated string in a message box
