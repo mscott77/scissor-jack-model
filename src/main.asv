@@ -18,7 +18,7 @@ p_sectionStockSelection = 'I1';         % see the document 'p_sectionStockSelect
 % NOT to be changed by the user:
 F = 2000;                             % applied force (lb) - force the jack will lift
 Ld = 10;                          % length of the diagonal member from pin to pin (center to center)
-Lap = 1.5;                   % length of the diagonal and vertical members after the pin  
+Lap = ;                   % length of the diagonal and vertical members after the pin  
 Lv = 2;                       % length of the vertical member from pin to pin (center to center)
 Lcb_start = 8.7;               % length of the cross bar IN THE STARTING POSITION (fully extended i.e. the shortest length or the cross-bar, it will grow from here
 % crossBar L ending                     - this will be calculated later, it will be however big it needs to be to allow for the jack to raise the desired height 
@@ -33,8 +33,8 @@ G_Ti = 16500;                       % (psi) - modulus of elasticity
 Poisson_Ti = 0.3;                   %       - poisson's ratio
 % decide dimensions of the cross section of the diagonal and vertical members based on 'p_stockSectionSelection'
 sectionType_dv = 'C';                % 'I'=I-Beam , 'C'=C-Channel , 'R'= hollow rectangular                                                  % FIXME: add a decision tree here!
-W_section = 2;                         % width of the diagonal/vertical member cross section
-H_section = 2;                         % height of the diagonal/vertical member cross section
+W_section = 1;                         % width of the diagonal/vertical member cross section
+H_section = 1;                         % height of the diagonal/vertical member cross section
 t_section = 1/16;                      % thickness of the diagonal/vertical member cross section
 
 
