@@ -12,7 +12,7 @@ clc;
 % to be changed by the user:
 p_pin_D = 0.5;                          % diameter of the pin        
 p_crossBar_D = 0.5;                     % diameter of the cross bar
-p_sectionStockSelection = 'I1';         % see the document 'p_sectionStockSelection' for details on the options (I1, I2, I3, C1, C2, C3, R1, R2, R3)
+p_sectionStockSelection = 'C1';         % see the document 'p_sectionStockSelection' for details on the options (I1, I2, I3, C1, C2, C3, R1, R2, R3)
 
 
 % NOT to be changed by the user:
@@ -32,7 +32,7 @@ Sf_Ti = 74000;                      % (psi) - fatigue strength
 G_Ti = 16500;                       % (psi) - modulus of elasticity
 Poisson_Ti = 0.3;                   %       - poisson's ratio
 % decide dimensions of the cross section of the diagonal and vertical members based on 'p_stockSectionSelection'
-sectionType_dv = 'C';                % 'I'=I-Beam , 'C'=C-Channel , 'R'= hollow rectangular                                                  % FIXME: add a decision tree here!
+sectionType_dv = 'I';                  % section typ for diag and vert members 'I'=I-Beam , 'C'=C-Channel , 'R'= hollow rectangular FIXME: add a decision tree
 W_section = 2;                         % width of the diagonal/vertical member cross section
 H_section = 2;                         % height of the diagonal/vertical member cross section
 t_section = 1/16;                      % thickness of the diagonal/vertical member cross section
@@ -103,14 +103,14 @@ o_maxStress_location = variables{index};
 ridiculousValue = 70e70;            
 %------DIAGONAL MEMBER-------
 % tearout
-SF_d_tearout_start = calculateSF_diag_tearout(Sf_Ti, Fd_start, Lap, t_section, p_pin_D);
-SF_d_tearout_end = calculateSF_diag_tearout(Sf_Ti, Fd_end, Lap, t_section, p_pin_D);
+SF_d_tearout_start = calculateSF_diag_tearout(Sf_Ti, Fd_start, Lap, t_section, p_pin_D, sectionType_dv);
+SF_d_tearout_end = calculateSF_diag_tearout(Sf_Ti, Fd_end, Lap, t_section, p_pin_D, sectionType_dv);
 % axial
 SF_d_axial_start = calculateSF_diag_axial(Sf_Ti, stress_d_start);
 SF_d_axial_end = calculateSF_diag_axial(Sf_Ti, stress_d_end);
 % bearing
-SF_d_bearing_start = calculateSF_diag_bearing(Sf_Ti, Fd_start, p_pin_D);
-SF_d_bearing_end = calculateSF_diag_bearing(Sf_Ti, Fd_end, p_pin_D);
+SF_d_bearing_start = calculateSF_diag_bearing(Sf_Ti, Fd_start, p_pin_D, sectionType_dv);
+SF_d_bearing_end = calculateSF_diag_bearing(Sf_Ti, Fd_end, p_pin_D, sectionType_dv);
 
 %------CROSS BAR-------
 % bearing
