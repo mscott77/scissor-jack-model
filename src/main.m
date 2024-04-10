@@ -10,7 +10,7 @@ clc;
 % ALL UNITS IN INCHES
 
 % to be changed by the user:
-p_pin_D = 0.5;                          % diameter of the pin        
+p_pin_D = .5;                          % diameter of the pin        
 p_crossBar_D = 0.5;                     % diameter of the cross bar
 p_sectionStockSelection = 'R3';         % see the function 'getSectionDimensions' for details on the options (I1, I2, I3, C1, C2, C3, R1, R2, R3)
 
@@ -169,5 +169,41 @@ result_str = join({string1, string2, string21 string3, string4, string5, string6
 
 % Display the concatenated string in a message box
 msgbox(result_str, 'Results');
+
+
+
+%----------------------------------write simulation details and results to a text file----------------------------------%
+% open a file for writing
+filename = 'simulationResults.txt';
+fileID = fopen(filename,'a');
+% Check if the file opened successfully
+if fileID == -1
+    error('Unable to open file for writing.');
+end
+% check if the file is empty
+file_info = dir(filename);
+if file_info.bytes == 0
+    % write the header
+    fprintf(fileID, [...
+        'date/time,	cs type,	W cs,	H cs,	t cs,	D pin,	D cross bar,' ...
+        'F applied force,	L diagonal,	L vert,	L cross bar (starting),' ...
+        'weight,	max stress value,	max stress location,	dominant failure mode,	failure location,	failure safety factor, failure orientation,' ...
+        'SF_d_tearout_start,	 SF_d_tearout_end,	 SF_d_axial_start,	 SF_d_axial_end	 SF_d_bearing_start,	 SF_d_bearing_end,' ...
+        'SF_cb_bearing_start,	 SF_cb_bearing_end,	 SF_cb_buckling_start,	 SF_cb_buckling_end,' ...
+        'SF_pin_shear_start,	 SF_pin_shear_end,	 SF_pin_bearing_start,	 SF_pin_bearing_end,	stress_cb_start,' ...
+        'stress_d_start,	 stress_v_start,	 stress_cb_end,	 stress_d_end,	 stress_v_end,' ...
+        'Fcb_start,	 Fd_start,	 Fv_start,	Fcb_end	 Fd_end	, Fv_end,\n'...
+        ]);
+end
+% write the results to the file
+datetime = datestr(now,'mm/dd HH:MM:SS');
+fileOutput = ["yo", "dog", "ice"];
+outputString = join(fileOutput,',');
+fprintf(fileID, outputString);
+fprintf(fileID, '\n');
+
+% Close the file
+fclose(fileID);
+%-----------------------------------------------------------------END---------------------------------------------------------------------
 
 
