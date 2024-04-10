@@ -124,8 +124,8 @@ SF_cb_buckling_end = ridiculousValue;
 SF_pin_shear_start = calculateSF_pin_shear(Sf_Ti, Fd_start, p_pin_D, sectionType_dv);
 SF_pin_shear_end = calculateSF_pin_shear(Sf_Ti, Fd_end, p_pin_D, sectionType_dv);
 % bearing
-SF_pin_bearing_start = ridiculousValue;
-SF_pin_bearing_end = ridiculousValue;
+SF_pin_bearing_start = calculateSF_pin_bearing(Sf_Ti, Fcb_start, p_pin_D, t_section, sectionType_dv);
+SF_pin_bearing_end = calculateSF_pin_bearing(Sf_Ti, Fcb_end, p_pin_D, t_section, sectionType_dv);
 
 
 %--------decide the dominant faliure mode (lowest safety factor)--------
