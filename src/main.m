@@ -12,7 +12,7 @@ clc;
 % to be changed by the user:
 p_pin_D = 0.5;                          % diameter of the pin        
 p_crossBar_D = 0.5;                     % diameter of the cross bar
-p_sectionStockSelection = 'C1';         % see the document 'p_sectionStockSelection' for details on the options (I1, I2, I3, C1, C2, C3, R1, R2, R3)
+p_sectionStockSelection = 'R3';         % see the function 'getSectionDimensions' for details on the options (I1, I2, I3, C1, C2, C3, R1, R2, R3)
 
 
 % NOT to be changed by the user:
@@ -32,10 +32,7 @@ Sf_Ti = 74000;                      % (psi) - fatigue strength
 G_Ti = 16500;                       % (psi) - modulus of elasticity
 Poisson_Ti = 0.3;                   %       - poisson's ratio
 % decide dimensions of the cross section of the diagonal and vertical members based on 'p_stockSectionSelection'
-sectionType_dv = 'I';                  % section typ for diag and vert members 'I'=I-Beam , 'C'=C-Channel , 'R'= hollow rectangular FIXME: add a decision tree
-W_section = 2;                         % width of the diagonal/vertical member cross section
-H_section = 2;                         % height of the diagonal/vertical member cross section
-t_section = 1/16;                      % thickness of the diagonal/vertical member cross section
+[W_section, H_section, t_section, sectionType_dv] = getSectionDimensions(p_sectionStockSelection);
 
 
 

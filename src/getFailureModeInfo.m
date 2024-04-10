@@ -10,7 +10,7 @@ function [mode, location, orientation] = getFailureModeInfo(info)
         location = 'diagonal';
     elseif strcmp(loc, 'c')
         location = 'cross bar';
-    elseif strcmp(loc, 'p')
+    elseif strcmp(loc, 'pin')
         location = 'pin';
     else
         location = 'unknown';
