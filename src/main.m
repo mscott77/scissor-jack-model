@@ -121,8 +121,8 @@ SF_cb_buckling_start = ridiculousValue;
 SF_cb_buckling_end = ridiculousValue;
 %------PIN-------
 % shear
-SF_pin_shear_start = ridiculousValue;
-SF_pin_shear_end = ridiculousValue;
+SF_pin_shear_start = calculateSF_pin_shear(Sf_Ti, Fd_start, p_pin_D, sectionType_dv);
+SF_pin_shear_end = calculateSF_pin_shear(Sf_Ti, Fd_end, p_pin_D, sectionType_dv);
 % bearing
 SF_pin_bearing_start = ridiculousValue;
 SF_pin_bearing_end = ridiculousValue;
