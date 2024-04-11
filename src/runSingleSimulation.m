@@ -29,9 +29,10 @@ function wasSuccessful = runSingleSimulation(p_pin_D, p_crossBar_D, p_sectionSto
     % material properties of titanium
     Density_Ti = 0.16;                  % (lb/in^3)
     Sy_Ti = 128000;                     % (psi) - yield strength
+    Syc_Ti = 141000;
     Sut_Ti = 138000;                    % (psi) - ultimate tensile strength
     Sf_Ti = 74000;                      % (psi) - fatigue strength
-    G_Ti = 16500;                       % (psi) - modulus of elasticity
+    G_Ti = 16500000;                     % (psi) - modulus of elasticity
     Poisson_Ti = 0.3;                   %       - poisson's ratio
     % decide dimensions of the cross section of the diagonal and vertical members based on 'p_stockSectionSelection'
     [W_section, H_section, t_section, sectionType_dv] = getSectionDimensions(p_sectionStockSelection);
@@ -116,8 +117,10 @@ function wasSuccessful = runSingleSimulation(p_pin_D, p_crossBar_D, p_sectionSto
     SF_cb_bearing_start = ridiculousValue;
     SF_cb_bearing_end = ridiculousValue;
     % buckling
-    SF_cb_buckling_start = ridiculousValue;
-    SF_cb_buckling_end = ridiculousValue;
+    SF_cb_buckling_start = calculateSF_cross_buckle(G_Ti, Syc_Ti, Lcb_start, CS_CB.A, CS_CB.Ix, Fcb_start);
+    SF_cb_buckling_end = calculateSF_cross_buckle(G_Ti, Syc_Ti, Lcb_end, CS_CB.A, CS_CB.Ix, Fcb_end);
+
+
     %------PIN-------
     % shear
     SF_pin_shear_start = calculateSF_pin_shear(Sf_Ti, Fd_start, p_pin_D, sectionType_dv);

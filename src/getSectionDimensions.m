@@ -2,7 +2,7 @@ function [W,H,t,CStype] = getSectionDimensions(info)
 %GETSECTIONDIMENSIONS choose from the following options:
 %   C1 = 2x1x(1/8)
 %   C2 = 3x1.5x(3/16)
-%   C3 = 2x1x(1/4)
+%   C3 = 1x2x(1/4)
 %   I1 = 1x1.95x.05
 %   I2 = 2x2x(1/8)
 %   I3 = 2.375x1x(1/4)
@@ -23,8 +23,8 @@ function [W,H,t,CStype] = getSectionDimensions(info)
             H = 1.5;
             t = 3/16;
         elseif subtype == 3
-            W = 2;
-            H = 1;
+            W = 1;
+            H = 2;
             t = 1/4;
         else
             error('Invalid cross section subtype');

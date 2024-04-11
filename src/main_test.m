@@ -2,12 +2,10 @@
 clear;
 clc;
 
-Dpin = 0.5;
-Dcb = 1;
+Dpin = .25;
+Dcb = .5;
 CrossSection = 'I1';
-runSingleSimulation(Dpin,Dcb,CrossSection,false);
+runSingleSimulation(Dpin,Dcb,CrossSection,true);
 
-Dpin = 1;
-Dcb = 2;
-CrossSection = 'I2';
-runSingleSimulation(Dpin,Dcb,CrossSection,false);
+% validate CB hand calcs:  E            Syc  Lcb    Acb    Icb    Fcb
+%                          16500000, 141000, 16, .1963, .003068, 2664
